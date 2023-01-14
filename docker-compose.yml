@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  postgresdb:
+  postgres:
     image: postgres:latest
     environment:
       - POSTGRES_USER=postgres
@@ -12,7 +12,7 @@ services:
       - ./postgres-init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
-  mongodb:
+  mongo:
     image: mongo:latest
     environment:
       - "MONGO_INITDB_ROOT_USERNAME: mongo"
