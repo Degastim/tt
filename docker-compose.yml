@@ -1,0 +1,38 @@
+version: "2"
+
+services:
+  postgresdb:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    restart: on-failure
+    volumes:
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+  mongodb:
+    image: mongo:latest
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME: mongo"
+      - "MONGO_INITDB_ROOT_PASSWORD: mongo"
+      - "MONGO_INITDB_DATABASE: mongo"
+    restart: on-failure
+    ports:
+      - "27017:27017"
+  authorization-service:
+    build: ./authorization-service
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+  hashtranslator-service:
+    build: ./hashtranslator-service
+    restart: on-failure
+    depends_on: 
+      - mongo
+    ports:
+      - "8081:8081"
+

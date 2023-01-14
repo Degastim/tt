@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: hash-translator
+server:
+  port: 8081
+authorization:
+  server:
+    url: http://localhost:8080/api/auth?token={token}
+
+external:
+  errorCode: ERROR CODE
+  url: https://md5decrypt.net/en/Api/api.php?hash={hash}&hash_type={hash_type}&email={email}&code={code}
